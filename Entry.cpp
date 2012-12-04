@@ -1,5 +1,7 @@
 #include "Entry.h"
 
+using std::string;
+
 template <typename V>
 Entry<V>::Entry(string k, V v) {
   key = k;
@@ -23,5 +25,5 @@ void Entry<V>::setValue(V v) {
 
 template class Entry<int>;
 template class Entry<double>;
-template class Entry<std::string>;
+template class Entry<string>;
 

@@ -1,39 +1,69 @@
+#include "Entry.h"
 #include "Hash.h"
 #include <iostream>
-#include <list>
 
 
 using std::cout;
 using std::endl;
 using std::string;
+using std::vector;
 
-template <typename T>
-BST<T>::BST() {
-  
+template <typename V>
+Hash<V>::Hash() {
+  int size = 5;
+  vector<Entry<V> > newEntry;
+  for(int i=0; i < size; i++) {
+    table.push_back(newEntry);
+  }
 }
 
-template <typename T>
-BST<T>::~BST() {
-  
-}
-
-
-template <typename T>
-bool BST<T>::find(T v) {
-
-}
-
-template <typename T>
-void BST<T>::insert(T v) {
-
-}
-
-template <typename T>
-void BST<T>::remove(T v) {
-
+template <typename V>
+int Hash<V>::hashFunc(string k) {
+  int size = 5;
+  int sum = 0;
+  for(int i=0; i < (int)k.size(); i++) {
+    sum+=(int)k[i];
+  } 
+  return sum%size;
 }
 
 
-template class BST<int>;
-template class BST<double>;
-template class BST<std::string>;
+template <typename V>
+V Hash<V>::find(string k) {
+  int hash = hashFunc(k);
+  for(int i=0; i< (int)table[hash].size(); i++) {
+    if(table[hash][i].getKey()==k) {
+      return table[hash][i].getValue();
+    }
+  }
+  cout << "Key not in table" << endl;
+  return (V)0;   
+} 
+
+template <typename V>
+void Hash<V>::insert(string k, V v) {
+  int hash = hashFunc(k);
+  Entry<V> newEntry = Entry<V>(k, v);
+  for(int i=0; i< (int)table[hash].size(); i++) {
+    if(table[hash][i].getKey()==k) {
+      table[hash][i].setValue(v);
+    }
+  }
+  table[hash].push_back(newEntry);
+}
+
+template <typename V>
+void Hash<V>::remove(string k) {
+  int hash = hashFunc(k);
+  for(int i=0; i< (int) table[hash].size(); i++) {
+    if(table[hash][i].getKey()==k) {
+      table[hash].erase (table[hash].begin()+i);
+    }
+  }
+  cout << "Key not in table" << endl;
+}
+
+
+template class Hash<int>;
+template class Hash<double>;
+template class Hash<string>;

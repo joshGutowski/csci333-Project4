@@ -12,8 +12,8 @@ template <typename V>
 class Hash {
  private:
   int size;
-  int hash(string s);
-  vector<vector<Entry<V>* > > table;
+  int hashFunc(string s);
+  vector<vector<Entry<V> > > table;
 
  public:
   Hash<V>();
