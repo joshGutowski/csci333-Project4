@@ -10,7 +10,7 @@ using std::vector;
 
 template <typename V>
 Hash<V>::Hash() {
-  int size = 5;
+  size = 997;
   vector<Entry<V> > newEntry;
   for(int i=0; i < size; ++i) {
     table.push_back(newEntry);
@@ -19,7 +19,6 @@ Hash<V>::Hash() {
 
 template <typename V>
 int Hash<V>::hashFunc(string k) {
-  int size = 5;
   int sum = 0;
   for(int i=0; i < (int)k.size(); ++i) {
     sum+=(int)k[i];
