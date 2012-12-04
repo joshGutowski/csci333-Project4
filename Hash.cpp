@@ -12,7 +12,7 @@ template <typename V>
 Hash<V>::Hash() {
   int size = 5;
   vector<Entry<V> > newEntry;
-  for(int i=0; i < size; i++) {
+  for(int i=0; i < size; ++i) {
     table.push_back(newEntry);
   }
 }
@@ -21,7 +21,7 @@ template <typename V>
 int Hash<V>::hashFunc(string k) {
   int size = 5;
   int sum = 0;
-  for(int i=0; i < (int)k.size(); i++) {
+  for(int i=0; i < (int)k.size(); ++i) {
     sum+=(int)k[i];
   } 
   return sum%size;
@@ -31,12 +31,11 @@ int Hash<V>::hashFunc(string k) {
 template <typename V>
 V Hash<V>::find(string k) {
   int hash = hashFunc(k);
-  for(int i=0; i< (int)table[hash].size(); i++) {
+  for(int i=0; i< (int)table[hash].size(); ++i) {
     if(table[hash][i].getKey()==k) {
       return table[hash][i].getValue();
     }
   }
-  cout << "Key not in table" << endl;
   return (V)0;   
 } 
 
@@ -44,7 +43,7 @@ template <typename V>
 void Hash<V>::insert(string k, V v) {
   int hash = hashFunc(k);
   Entry<V> newEntry = Entry<V>(k, v);
-  for(int i=0; i< (int)table[hash].size(); i++) {
+  for(int i=0; i< (int)table[hash].size(); ++i) {
     if(table[hash][i].getKey()==k) {
       table[hash][i].setValue(v);
     }
@@ -55,12 +54,11 @@ void Hash<V>::insert(string k, V v) {
 template <typename V>
 void Hash<V>::remove(string k) {
   int hash = hashFunc(k);
-  for(int i=0; i< (int) table[hash].size(); i++) {
+  for(int i=0; i< (int)table[hash].size(); ++i) {
     if(table[hash][i].getKey()==k) {
-      table[hash].erase (table[hash].begin()+i);
+      table[hash].erase(table[hash].begin()+i);
     }
   }
-  cout << "Key not in table" << endl;
 }
 
 
